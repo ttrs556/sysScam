@@ -1,30 +1,46 @@
-import time
-import platform
-from datetime import datetime
+#!/data/data/com.termux/files/usr/bin/bash
 
-steps = [
-"Verificando assinatura",
-"Hash das bibliotecas",
-"Detectando hooks",
-"Verificando loaders externos",
-"Checando artefatos Mreplays",
-"Correlacionando evidências"
-]
+while true
+do
+clear
 
-print("\nDISPOSITIVO:", platform.node())
-print("MODELO:", platform.machine())
-print("DATA:", datetime.now())
-print()
+echo "=================================="
+echo "            SYS"
+echo "=================================="
+echo "• O scanner precisa ser pareado"
+echo "  ou pode resultar em má conclusão"
+echo
+echo "[0] PAREAR DISPOSITIVO"
+echo "[1] FREE FIRE NORMAL"
+echo "[2] FREE FIRE MAX"
+echo "[3] PERMITIR TERMUX"
+echo "[4] SAIR"
 
-for i,step in enumerate(steps,1):
-    print(f"[{i}/6] {step}", end="", flush=True)
+read -p "Escolha: " op
 
-    for x in range(6):
-        time.sleep(0.4)
-        print(".", end="", flush=True)
+case $op in
 
-    print(" OK")
+0)
+./pair.sh
+;;
 
-print("\nRIRU: Não detectado")
-print("Hooks: Nenhum encontrado")
-print("Risco: BAIXO")
+1)
+python scan.py normal
+;;
+
+2)
+python scan.py max
+;;
+
+3)
+termux-setup-storage
+;;
+
+4)
+exit
+;;
+
+esac
+
+read -p "Enter para continuar..."
+done
